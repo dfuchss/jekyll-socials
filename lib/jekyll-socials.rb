@@ -47,16 +47,20 @@ end
 
 module Jekyll
   class SocialLinksTag < Liquid::Tag
-        def render_simple_icon_link(simple_icon_slug, social, context)
-          return '' if simple_icon_slug.nil? || simple_icon_slug.to_s.strip.empty?
-          slug = simple_icon_slug.to_s.strip.downcase.gsub(/[^a-z0-9\-]/, "")
-          output_dir = "assets/img/social/simple-icons"
-          icon_url = relative_url("/#{output_dir}/#{slug}.svg", context)
-          icon_html = "<span class='simple-icon simple-icon--#{slug}' style='--social-icon-mask:url(#{icon_url});'></span>"
-          url = social[1]['url']
-          title = social[1]['title'] || slug.capitalize
-          "<a href='#{url}' title='#{title}'>#{icon_html}</a>"
-        end
+    def render_simple_icon_link(simple_icon_slug, social, context)
+      return '' if simple_icon_slug.nil? || simple_icon_slug.to_s.strip.empty?
+
+      site = context.registers[:site]
+      cfg = site.config.dig('jekyll_socials', 'simple_icons') || {}
+      output_dir = (cfg['output_dir'] || 'assets/img/social/simple-icons').sub(%r{\A/}, '')
+      slug = simple_icon_slug.to_s.strip.downcase.gsub(/[^a-z0-9-]/, '')
+      icon_url = relative_url("/#{output_dir}/#{slug}.svg", context)
+      icon_html = "<span class='simple-icon simple-icon--#{slug}' style='--social-icon-mask:url(#{icon_url});'></span>"
+      url = social[1]['url']
+      title = social[1]['title'] || slug.capitalize
+      "<a href='#{url}' title='#{title}'>#{icon_html}</a>"
+    end
+
     # Helper method to construct relative URL with baseurl
     def relative_url(path, context)
       return path if path.include?('://')
