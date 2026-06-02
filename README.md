@@ -4,14 +4,14 @@
 
 A plugin to help add social media info to your site. For more information, check the [documentation](https://george-gca.github.io/jekyll-socials/).
 
-## Supported Web Fonts
+## Supported Icon Libraries
 
-This plugin supports three web font libraries for rendering social media icons:
+This plugin supports four icon libraries for rendering social media icons:
 
 1. **[FontAwesome](https://fontawesome.com/)** - A comprehensive icon library with support for brands and general symbols
 2. **[Academicons](https://jpswalsh.github.io/academicons/)** - Specialized icons for academic platforms and publications
 3. **[Scholar Icons](https://louisfacun.github.io/scholar-icons/)** - Additional icons for technical and coding platforms
-4. **[Simple Icons](https://github.com/simple-icons/simple-icons/)** - A collection of popular brand icons as SVGs
+4. **[Simple Icons](https://github.com/simple-icons/simple-icons/)** - A collection of popular brand icons as SVGs, fetched at build time
 
 ### Using Icons from Other Font Sources
 
@@ -110,6 +110,45 @@ custom_social:
   logo: custom-font-icon-class # Any icon class from fonts you've added
   title: My Custom Social
   url: https://example.com
+```
+
+### Simple Icons (SVG)
+
+For any icon available on [Simple Icons](https://simpleicons.org/), use the `simple_icon` field with the icon's slug. The plugin fetches the SVG from the Simple Icons CDN at build time and saves it into `assets/img/social/simple-icons/` in your generated site.
+
+```yml
+codeberg:
+  simple_icon: codeberg
+  title: Codeberg
+  url: https://codeberg.org/your_handle
+```
+
+The rendered icon uses a CSS mask, so you theme it via the `color` property:
+
+```scss
+.contact-icons {
+  .simple-icon {
+    display: inline-block;
+    width: 3.2rem;
+    height: 3.2rem;
+    background-color: currentColor;
+    -webkit-mask: var(--social-icon-mask) no-repeat center / contain;
+    mask: var(--social-icon-mask) no-repeat center / contain;
+    color: #ddd;
+    &:hover {
+      color: green;
+    }
+  }
+}
+```
+
+You can configure Simple Icons behavior in `_config.yml`:
+
+```yml
+jekyll_socials:
+  simple_icons:
+    enabled: true                              # set to false to disable SVG downloading (default: true)
+    cdn_url: https://simpleicons.org/icons/    # CDN base URL for fetching SVG files
 ```
 
 ## Building and Releasing a New Version

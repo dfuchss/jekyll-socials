@@ -138,15 +138,16 @@ codeberg:
   url: https://codeberg.org/your_handle
 ```
 
-Theme with CSS by changing link color:
+Theme the icon color with SCSS:
 
-```css
-.contact-icons a {
-  color: #ddd;
-}
-
-.contact-icons a:hover {
-  color: green;
+```scss
+.contact-icons {
+  .simple-icon {
+    color: #ddd;
+    &:hover {
+      color: green;
+    }
+  }
 }
 ```
 
@@ -162,9 +163,9 @@ Next, add the following to your layout file:
 
 {% endraw %}
 
-Now, let's stylize the social icons. To do this, add this to your CSS file:
+Now, let's stylize the social icons. To do this, add this to your SCSS file:
 
-```css
+```scss
 .social {
   text-align: center;
 
@@ -181,7 +182,7 @@ Now, let's stylize the social icons. To do this, add this to your CSS file:
         display: inline-block;
         width: 3.2rem;
         height: 3.2rem;
-        background-color: #ddd;
+        background-color: currentColor;
         -webkit-mask: var(--social-icon-mask) no-repeat center / contain;
         mask: var(--social-icon-mask) no-repeat center / contain;
         color: #{$text-color};
