@@ -11,8 +11,7 @@ This plugin supports three web font libraries for rendering social media icons:
 1. **[FontAwesome](https://fontawesome.com/)** - A comprehensive icon library with support for brands and general symbols
 2. **[Academicons](https://jpswalsh.github.io/academicons/)** - Specialized icons for academic platforms and publications
 3. **[Scholar Icons](https://louisfacun.github.io/scholar-icons/)** - Additional icons for technical and coding platforms
-
-It also supports **[Simple Icons](https://github.com/simple-icons/simple-icons/)** as SVGs. The plugin fetches the SVGs from the Simple Icons CDN at build time, saves them into your generated site, and renders them using a mask so they are fully themeable via CSS.
+4. **[Simple Icons](https://github.com/simple-icons/simple-icons/)** - A collection of popular brand icons as SVGs
 
 ### Using Icons from Other Font Sources
 
@@ -65,46 +64,6 @@ custom_social:
   url: https://example.com
 ```
 
-## Simple Icons (SVG)
-
-You can use any Simple Icons slug and the plugin will download the SVG into your generated site (default: `assets/img/social/simple-icons/`).
-Use https://simpleicons.org/ to find the slug for the icon you want to use.
-
-### Config
-
-```yml
-jekyll_socials:
-  simple_icons:
-    enabled: true
-    output_dir: assets/img/social/simple-icons
-    cdn_url: https://cdn.simpleicons.org/
-```
-
-### Usage
-
-For a custom social:
-
-```yml
-codeberg:
-  simple_icon: codeberg
-  title: Codeberg
-  url: https://codeberg.org/your_handle
-```
-
-### Themeable CSS
-
-The Simple Icons output uses `currentColor`, so you can theme them by setting color on the link:
-
-```css
-.contact-icons a {
-  color: var(--global-text-color);
-}
-
-.contact-icons a:hover {
-  color: var(--global-theme-color);
-}
-```
-
 ## Building and Releasing a New Version
 
 To build and release a new gem version:
@@ -116,6 +75,7 @@ To build and release a new gem version:
    ```
 
 2. **Push to RubyGems** - This publishes the gem to [RubyGems.org](https://rubygems.org/), making it available for installation:
+
    ```bash
    gem push jekyll-socials-X.X.X.gem
    ```
